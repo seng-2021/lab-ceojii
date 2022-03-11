@@ -8,6 +8,8 @@ def encode(s):
     digitmapping = dict(zip('1234567890!"#€%&/()=','!"#€%&/()=1234567890'))
     if len(s) > 1000:
         raise ValueError
+    #padding the length
+    s = s.ljust(1001, 'a')
     for c in s:
         #invalid characters raise a ValueError
         if c in ['+','-','å','ä','ä']:
@@ -19,7 +21,8 @@ def encode(s):
             crypted+=codecs.encode(c,'rot13')
         elif c in digitmapping:
           crypted+=digitmapping[c]
-
+    #undo the padding
+    crypted = crypted[0:origlen]
     return crypted
 
 def decode(s):
