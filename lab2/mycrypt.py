@@ -9,6 +9,9 @@ def encode(s):
     if len(s) > 1000:
         raise ValueError
     for c in s:
+        #invalid characters raise a ValueError
+        if c in ['+','-','å','ä','ä']:
+            raise ValueError
         if c.isalpha():
             if c.islower():
                 c=c.upper()
@@ -20,5 +23,6 @@ def encode(s):
     return crypted
 
 def decode(s):
+    #added decrypting
+    s = encode(s).lower()
     return s
-
